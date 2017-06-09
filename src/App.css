@@ -1,5 +1,12 @@
 .App {
   text-align: center;
+  /*background-color: tomato;*/
+  background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5) ), url('background.jpg'), no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height:100vh;
 }
 
 .App-logo {
@@ -21,4 +28,54 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.directions-title{
+  font-size: 30px;
+
+}
+
+.directions-content{
+  font-size: 24px;
+}
+
+.directions-title .directions-content{
+  margin: 10px;
+}
+
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: left;
+}
+
+.jumbotron {
+  margin-left: 30px;
+  margin-right: 30px;
+  border-radius: 10px;
+  text-align: left;
+  padding: 50px;
+  font-size: 20px;
+}
+
+textarea {
+  width: 400px;
+  height: 200px;
+}
+
+#create-routine {
+  margin: 100px 0 100px 0;
+}
+
+.btn {
+  color: black;
+  display: none;
+}
+
+#clientName {
+  min-width: 60%;
 }
