@@ -28,7 +28,6 @@ class App extends Component {
       view: currentUser ? 'main' : 'home'
     })
     if(currentUser) {
-      console.log('FUCK THIS FIRST ' + currentUser.name);
       clientAuth.getClients(currentUser._id)
         .then(res => {
           this.setState({
@@ -37,7 +36,6 @@ class App extends Component {
         })
     }
     if(currentUser) {
-      console.log('FUCK THIS ' + currentUser.routine);
       clientAuth.getRoutine(currentUser.routine)
       .then(res => {
         console.log(res);
@@ -154,7 +152,6 @@ class App extends Component {
         console.log(res);
         const routineId = res.data.routine._id
         console.log(clientId + " " + routineId);
-
         clientAuth.updateRoutine(clientId, routineId)
       })
     form.reset()
