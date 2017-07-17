@@ -1,8 +1,8 @@
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 
-// axios.defaults.baseURL = 'https://therapy-connect-api.herokuapp.com/'
-axios.defaults.baseURL = 'http://localhost:3001/'
+axios.defaults.baseURL = 'https://therapy-connect-api.herokuapp.com/'
+// axios.defaults.baseURL = 'http://localhost:3001/'
 
 const clientAuth = {
 
@@ -31,7 +31,6 @@ const clientAuth = {
       if(res.data.token) {
         //this code hasent run unless we log in, we need to setToken above
         localStorage.setItem('token', res.data.token)
-        //cut and pasted the above code from here
         //now we can run the fnx
         clientAuth.setTokenHeader()
         return jwt_decode(res.data.token)
@@ -114,6 +113,7 @@ const clientAuth = {
     })
   },
 
+  //where we are updating our therapist
   updateTherapist: (therapist) => {
     return axios({
       url: `/api/users/${therapist._id}`,

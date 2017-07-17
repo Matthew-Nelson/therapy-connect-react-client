@@ -50,6 +50,7 @@ class App extends Component {
             body: res.data.body,
             completeDate: res.data.completeDate,
             id: res.data._id,
+            //added therapist ID to loaded routine
             therapistId: res.data.therapistId
           }
           this.setState({
@@ -180,28 +181,30 @@ class App extends Component {
     form.reset()
   }
 
+  // updating our therapist and deleting routine
   _deleteRoutine(rId, tId) {
-    console.log(rId)
-    //this will pass our IDs to the client auth doc and run the deleteRoutine fxn
-    console.log(tId)
     //passing our info to run new fxn
+    //will only create a review if there is actually a value in the text area
     if (this.refs.routineReview.value) {
-      //will only create a review if there is actually a value in the text area
+      //this will pass our IDs to the client auth doc and run the deleteRoutine fxn
       clientAuth.getTherapist(tId).then((res) => {
-        console.log(res)
+        //grab therapist from server and set it to new variable
         var therapist = res.data
-        console.log(therapist)
+        //grabbing our routine review from our reference below
         this.refs.routineReview
         var newReview = {}
+        //getting our routine name from routine stored in state
         newReview.title = this.state.routine.name
+        //getting the name of the client from the user stored in the state
         newReview.client = this.state.currentUser.name
+        //getting the routine review from the value stored in the text area below
         newReview.review = this.refs.routineReview.value
-        console.log(newReview)
+        //we now have our newReview
         //push to array within therapist reviews
-        console.log(therapist.reviews);
         therapist.reviews.push(newReview)
-        console.log(therapist);
+        //run out update therapist fxn that connects to our server
         clientAuth.updateTherapist(therapist)
+        //then remove the routine
         clientAuth.deleteRoutine(rId).then((res) => {
           this.setState({
             routine: {}
@@ -209,6 +212,7 @@ class App extends Component {
         })
       })
     } else {
+      //same lines of code as above, sometimes with asynchronous calls there are bugs
       clientAuth.deleteRoutine(rId).then((res) => {
         this.setState({
           routine: {}
@@ -217,7 +221,7 @@ class App extends Component {
     }
   }
 
-  _deleteReview(){}
+  // _deleteReview(){}
 
   render() {
 
@@ -234,16 +238,15 @@ class App extends Component {
     const routine = this.state.routine
     console.log('routine thats live ' + this.state.routine.name)
 
-    //grabbing our reviews and setting them to an array in memory
+    //grabbing our reviews and setting them to an array in our state
     const reviews = this.state.reviews.map((r, i) => {
       return (
       <p key={i}>
+        {/* Now we have an array of elements that we will be able to render in our body */}
         <p>Here is what <strong>{r.client}</strong> thought of the <strong>{r.title}</strong> routine you assigned them</p>
         <p><em>"{r.review}"</em></p>
-        <Button onClick={this._deleteReview.bind(this, r._id)}>X</Button><br></br><br></br>
-
-
-
+        {/* Button doesnt go anywhere yet, will delete the reviews */}
+        <Button>X</Button><br></br><br></br>
       </p>
       )
       console.log(reviews);
@@ -343,11 +346,13 @@ class App extends Component {
                           </form>
                         </Jumbotron>
                       </Row>
+                      {/* New section */}
                       <Row>
                         <Jumbotron>
                           <h2>Reviews Section!</h2>
                           <p>When your clients review their routines you can see them here.</p>
                           <ul>
+                            {/* dropping in our review elements that we created above */}
                             {reviews}
                           </ul>
                         </Jumbotron>
