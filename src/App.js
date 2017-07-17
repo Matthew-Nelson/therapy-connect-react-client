@@ -202,13 +202,19 @@ class App extends Component {
         therapist.reviews.push(newReview)
         console.log(therapist);
         clientAuth.updateTherapist(therapist)
+        clientAuth.deleteRoutine(rId).then((res) => {
+          this.setState({
+            routine: {}
+          })
+        })
+      })
+    } else {
+      clientAuth.deleteRoutine(rId).then((res) => {
+        this.setState({
+          routine: {}
+        })
       })
     }
-    clientAuth.deleteRoutine(rId).then((res) => {
-      this.setState({
-        routine: {}
-      })
-    })
   }
 
   _deleteReview(){}
@@ -293,11 +299,11 @@ class App extends Component {
                       <Row>
                         <Jumbotron className="jumbotron" id="routine-forms">
                           <div>
-                            <Button type="button" bsStyle="primary" className="btn btn-lg" name='isntructions' onClick={this._setView.bind(this)}>Instructions</Button>
+                            {/* <Button type="button" bsStyle="primary" className="btn btn-lg" name='isntructions' onClick={this._setView.bind(this)}>Instructions</Button>
                             <Button type="button" bsStyle="primary" className="btn btn-lg" name='routines' onClick={this._setView.bind(this)}>Routines</Button>
                             {this.state.currentUser.isPt && (
                               <Button type="button" bsStyle="primary" className="btn btn-lg" name='feedback' onClick={this._setView.bind(this)}>Feedback</Button>
-                            )}
+                            )} */}
                           </div>
                           <h2>{this.state.loggedIn ? "Welcome " + this.state.currentUser.name + "!": ""}</h2><br></br>
                           <p>Once your clients have joined your network, you can prescribe them customized and detailed health routines.</p>
@@ -356,8 +362,8 @@ class App extends Component {
                     <Grid>
                       <Row>
                         <Jumbotron>
-                          <Button type="button" bsStyle="primary" className="btn btn-lg" name='isntructions' onClick={this._setView.bind(this)}>Instructions</Button>
-                          <Button type="button" bsStyle="primary" className="btn btn-lg" name='routines' onClick={this._setView.bind(this)}>Routines</Button>
+                          {/* <Button type="button" bsStyle="primary" className="btn btn-lg" name='isntructions' onClick={this._setView.bind(this)}>Instructions</Button>
+                          <Button type="button" bsStyle="primary" className="btn btn-lg" name='routines' onClick={this._setView.bind(this)}>Routines</Button> */}
                           <h2>{this.state.loggedIn ? "Welcome " + this.state.currentUser.name + "!": ""}</h2><br></br>
                           {this.state.routine && (
                             <div>
