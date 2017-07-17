@@ -1,7 +1,8 @@
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 
-axios.defaults.baseURL = 'https://therapy-connect-api.herokuapp.com/'
+// axios.defaults.baseURL = 'https://therapy-connect-api.herokuapp.com/'
+axios.defaults.baseURL = 'http://localhost:3001/'
 
 const clientAuth = {
 
@@ -104,7 +105,23 @@ const clientAuth = {
       method: 'post'
       // data: routineId
     })
+  },
+
+  getTherapist: (therapistId) => {
+    return axios({
+      url: `/api/users/${therapistId}`,
+      method: 'get'
+    })
+  },
+
+  updateTherapist: (therapist) => {
+    return axios({
+      url: `/api/users/${therapist._id}`,
+      method: 'patch',
+      data: therapist
+    })
   }
+
 }
 
 clientAuth.setTokenHeader()
